@@ -16,11 +16,13 @@ phases:
   pre_build: 
     commands: 
        - export CX_REPO_NAME=$(basename "$CODEBUILD_SOURCE_REPO_URL" .git)
-       - export CX_REPO_BRANCH="master"
+       - export CX_REPO_BRANCH=${Branch}
        - |
          if expr "${CX_REPO_BRANCH}"; then
+           echo "${CX_REPO_BRANCH}"
            export CX_PROJECT=$(echo "$CODEBUILD_BUILD_ID" | cut -f1 -d:)-${CX_REPO_BRANCH}
          else
+           echo "${CX_REPO_BRANCH}"
            export CX_PROJECT=$(echo "$CODEBUILD_BUILD_ID" | cut -f1 -d:)
          fi
        - |
